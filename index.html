@@ -270,6 +270,81 @@
   </div>
 </section>
 
+<section id="business-model">
+  <div class="business-shell">
+    <div class="business-head business-anim">
+      <div>
+        <div class="label-mono business-label">Commercial Model</div>
+        <h2 class="headline-large">Business Model.</h2>
+        <p>ANN.Energy | Offshore wind intelligence, predictive maintenance, and high-margin advisory services.</p>
+      </div>
+      <div class="business-stage">Pre-Revenue · Pre-Seed</div>
+    </div>
+
+    <div class="business-grid-top business-anim">
+      <article class="business-card revenue-card">
+        <div class="business-icon">⚡</div>
+        <div class="business-card-copy">
+          <h3>Pleiades SaaS License</h3>
+          <p class="business-sub">AI-powered predictive maintenance</p>
+          <div class="business-value">£30K / turbine / yr</div>
+          <div class="business-margin">78% Gross Margin</div>
+          <div class="business-revenue">Y3 Revenue: <strong>£1.8M (Base)</strong> -> <strong>£5.25M (Bull)</strong></div>
+          <ul class="business-points">
+            <li>LTV:CAC = 12x-20x</li>
+            <li>60 turbines Y3 base</li>
+          </ul>
+        </div>
+      </article>
+
+      <article class="business-card revenue-card">
+        <div class="business-icon">▥</div>
+        <div class="business-card-copy">
+          <h3>Data & Advisory Services</h3>
+          <p class="business-sub">Fleet benchmarking and carbon audits</p>
+          <div class="business-value">£167K / contract avg.</div>
+          <div class="business-margin">70% Gross Margin</div>
+          <div class="business-revenue">Y3 Revenue: <strong>£500K (Base)</strong> -> <strong>£1.2M (Bull)</strong></div>
+          <ul class="business-points">
+            <li>3 contracts Y3 | 6 Bull</li>
+            <li>High-margin recurring</li>
+          </ul>
+        </div>
+      </article>
+    </div>
+
+    <div class="business-grid-bottom business-anim">
+      <article class="business-metric">
+        <div class="business-metric-icon">◎</div>
+        <div class="business-metric-value">£4.2B+</div>
+        <h3>Total Addressable Market</h3>
+        <p>Offshore O&M and intelligence services market</p>
+      </article>
+
+      <article class="business-metric">
+        <div class="business-metric-icon">↑</div>
+        <div class="business-metric-value">6-10 mo</div>
+        <h3>Payback Period (SaaS)</h3>
+        <p>From contract signing</p>
+      </article>
+
+      <article class="business-metric">
+        <div class="business-metric-icon">◔</div>
+        <div class="business-metric-value">£9.85M</div>
+        <h3>Y3 Total Revenue (Base)</h3>
+        <p>£28.2M Bull Case</p>
+      </article>
+
+      <article class="business-metric">
+        <div class="business-metric-icon">◈</div>
+        <div class="business-metric-value">50% / 30%</div>
+        <h3>SEIS / EIS Available</h3>
+        <p>Tax relief for UK investors</p>
+      </article>
+    </div>
+  </div>
+</section>
+
 <section id="roadmap">
   <div class="roadmap-header-wrapper roadmap-anim">
     <div class="label-mono" style="color: var(--accent-cyan); margin-bottom: 16px;">Execution Plan</div>
@@ -448,6 +523,19 @@
       { scale: 1, textShadow: "0 0 0px var(--accent-green)" },
       { scale: 1.2, textShadow: "0 0 20px var(--accent-green)", duration: 0.5, yoyo: true, repeat: 1, stagger: 0.1 },
       "-=0.2"
+    );
+
+    const businessTl = gsap.timeline({
+      scrollTrigger: {
+        trigger: "#business-model",
+        start: "top 70%",
+        toggleActions: "play none none reverse"
+      }
+    });
+
+    businessTl.fromTo(".business-anim",
+      { opacity: 0, y: 34 },
+      { opacity: 1, y: 0, duration: 0.9, ease: "power3.out", stagger: 0.16 }
     );
   });
 </script>
