@@ -31,6 +31,7 @@
     <li><a href="#problem">Platform</a></li>
     <li><a href="#pnn">Technology</a></li>
     <li><a href="#cta">Vision</a></li>
+    <li><a href="#about-us">About Us</a></li>
   </ul>
   <a href="mailto:anenergyuk@gmail.com" class="nav-cta">Invest</a>
 </nav>
@@ -537,6 +538,19 @@
       { opacity: 0, y: 34 },
       { opacity: 1, y: 0, duration: 0.9, ease: "power3.out", stagger: 0.16 }
     );
+
+    const aboutTl = gsap.timeline({
+      scrollTrigger: {
+        trigger: "#about-us",
+        start: "top 72%",
+        toggleActions: "play none none reverse"
+      }
+    });
+
+    aboutTl.fromTo(".about-anim",
+      { opacity: 0, y: 26, scale: 0.96 },
+      { opacity: 1, y: 0, scale: 1, duration: 0.85, ease: "power3.out", stagger: 0.14 }
+    );
   });
 </script>
 
@@ -562,6 +576,53 @@
       <p>ANN.Energy team moment following the ScottishPower meeting.</p>
     </figcaption>
   </figure>
+</section>
+
+<section id="about-us">
+  <div class="about-shell">
+    <div class="label-mono about-label">The Team</div>
+    <h2 class="headline-large about-title">Built by Engineers Who Understand Wind</h2>
+
+    <div class="team-grid">
+      <article class="team-member team-founder about-anim">
+        <div class="team-orb">
+          <span>AS</span>
+        </div>
+        <h3>Asad</h3>
+        <p>Founder</p>
+      </article>
+
+      <div class="team-row about-anim">
+        <article class="team-member">
+          <div class="team-orb">
+            <span>UT</span>
+          </div>
+          <h3>Utkarsh</h3>
+        </article>
+
+        <article class="team-member">
+          <div class="team-orb">
+            <span>IM</span>
+          </div>
+          <h3>Immam</h3>
+        </article>
+
+        <article class="team-member">
+          <div class="team-orb">
+            <span>MA</span>
+          </div>
+          <h3>Mannan</h3>
+        </article>
+      </div>
+
+      <article class="team-member team-bottom about-anim">
+        <div class="team-orb">
+          <span>YA</span>
+        </div>
+        <h3>Yash</h3>
+      </article>
+    </div>
+  </div>
 </section>
 
 <footer>
