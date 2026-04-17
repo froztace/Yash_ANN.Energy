@@ -25,6 +25,13 @@ overflow-x: hidden;
 -moz-osx-font-smoothing: grayscale;
 cursor: none;
 }
+
+body.about-page {
+cursor: auto;
+background:
+radial-gradient(circle at top, rgba(0, 229, 255, 0.08) 0%, rgba(0, 0, 0, 0) 26%),
+linear-gradient(180deg, rgba(2, 6, 11, 0.98) 0%, rgba(0, 0, 0, 1) 100%);
+}
 #pnn-system {
 position: relative;
 min-height: 120vh;
@@ -1170,6 +1177,12 @@ padding: 32px 5vw 108px;
 background:
 radial-gradient(circle at top, rgba(0, 229, 255, 0.08) 0%, rgba(0, 0, 0, 0) 32%),
 linear-gradient(180deg, rgba(3, 8, 14, 0.98) 0%, rgba(0, 0, 0, 1) 100%);
+}
+
+body.about-page #about-us {
+min-height: 100vh;
+padding: 140px 5vw 96px;
+background: transparent;
 }
 
 .about-shell {
