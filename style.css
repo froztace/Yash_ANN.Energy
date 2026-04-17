@@ -1180,8 +1180,18 @@ linear-gradient(180deg, rgba(3, 8, 14, 0.98) 0%, rgba(0, 0, 0, 1) 100%);
 }
 
 body.about-page #about-us {
-min-height: 100vh;
-padding: 140px 5vw 96px;
+min-height: auto;
+padding: 24px 5vw 96px;
+background: transparent;
+}
+
+body.about-page #achievement-strip {
+padding: 140px 5vw 32px;
+background: transparent;
+}
+
+body.about-page #meeting-photo-strip {
+padding: 0 5vw 32px;
 background: transparent;
 }
 
