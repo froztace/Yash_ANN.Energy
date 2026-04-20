@@ -1264,6 +1264,17 @@ align-items: center;
 gap: 14px;
 }
 
+.team-link {
+color: inherit;
+text-decoration: none;
+transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+.team-link:hover {
+transform: translateY(-6px);
+opacity: 0.92;
+}
+
 .team-founder {
 margin-bottom: 8px;
 }
@@ -1321,6 +1332,56 @@ font-size: 12px;
 letter-spacing: 0.12em;
 text-transform: uppercase;
 color: rgba(123, 232, 247, 0.7);
+}
+
+.profile-page {
+min-height: 100vh;
+display: flex;
+align-items: center;
+justify-content: center;
+padding: 140px 5vw 96px;
+}
+
+.profile-card {
+width: min(720px, 100%);
+padding: 48px 36px;
+border-radius: 28px;
+background: linear-gradient(180deg, rgba(6, 13, 22, 0.92) 0%, rgba(3, 8, 14, 0.98) 100%);
+border: 1px solid rgba(0, 229, 255, 0.12);
+box-shadow: 0 30px 80px rgba(0, 0, 0, 0.36), inset 0 1px 0 rgba(255,255,255,0.03);
+text-align: center;
+}
+
+.profile-back {
+display: inline-block;
+margin-bottom: 34px;
+font-family: var(--font-mono);
+font-size: 12px;
+letter-spacing: 0.1em;
+text-transform: uppercase;
+color: var(--accent-cyan);
+text-decoration: none;
+}
+
+.profile-orb {
+margin: 0 auto 28px;
+}
+
+.profile-label {
+color: var(--accent-cyan);
+margin-bottom: 16px;
+}
+
+.profile-card h1 {
+font-size: clamp(46px, 6vw, 84px);
+line-height: 0.95;
+letter-spacing: -0.05em;
+margin-bottom: 24px;
+}
+
+.profile-card p {
+font-size: clamp(22px, 3vw, 36px);
+color: var(--text-secondary);
 }
 
 /* FOOTER */
