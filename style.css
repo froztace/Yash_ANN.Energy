@@ -1367,6 +1367,18 @@ text-decoration: none;
 margin: 0 auto 28px;
 }
 
+.profile-photo {
+display: block;
+width: min(360px, 100%);
+aspect-ratio: 4 / 5;
+object-fit: cover;
+object-position: center;
+margin: 0 auto 28px;
+border-radius: 24px;
+border: 1px solid rgba(0, 229, 255, 0.16);
+box-shadow: 0 24px 60px rgba(0, 0, 0, 0.34), 0 0 28px rgba(0, 229, 255, 0.08);
+}
+
 .profile-label {
 color: var(--accent-cyan);
 margin-bottom: 16px;
