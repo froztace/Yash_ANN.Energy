@@ -859,8 +859,8 @@ tlHero.to('.hero-badge', { opacity: 1, y: 0, duration: 1, ease: "power4.out", de
 // STORY CAMERA SETTINGS
 // Start: (0, 10, 45) -> Looking at turbine
 // Zoom 1 (Nacelle Exterior): (4, 18, 12) 
-// Zoom 2 (Inside Nacelle Core): camera passes into the cutaway mechanism
-// Zoom 3 (Electrical Panel): fault focus
+// Zoom 2 (Electrical Panel): fault focus
+// Zoom 3 (Stable cutaway): mechanism insight between red and green states
 
 let proxy = { 
   camX: 0, camY: 10, camZ: 45, 
@@ -874,9 +874,9 @@ let proxy = {
 };
 
 function syncStoryPanels(storyTime) {
-  const showMechanism = storyTime >= 0.65 && storyTime < 1.45;
-  const showProblem = storyTime >= 1.45 && storyTime < 2.35;
-  const showSolution = storyTime >= 2.65 && storyTime < 3.75;
+  const showProblem = storyTime >= 1.15 && storyTime < 2.05;
+  const showMechanism = storyTime >= 2.05 && storyTime < 3.05;
+  const showSolution = storyTime >= 3.05 && storyTime < 4.05;
 
   panelMechanismEl.classList.toggle('active', showMechanism);
   panelProblemEl.classList.toggle('active', showProblem);
@@ -895,40 +895,28 @@ const tlStory = gsap.timeline({
 
 // PHASE 1: ZOOM TO NACELLE & FADE SHELL
 tlStory.to(proxy, {
-  camX: 6.8, camY: 18.2, camZ: 11,
+  camX: 6.4, camY: 18, camZ: 13,
   lookX: 0,
   lookY: 15,
   lookZ: 1,
   shellOpacity: 0.05, // Fade outer shell
-  duration: 0.65,
+  duration: 1.1,
   ease: "power2.inOut",
   onUpdate: updateScene
 }, 0);
 
-// PHASE 1B: ENTER THE CORE COMPONENT CUTAWAY
-tlStory.to(proxy, {
-  camX: 1.6, camY: 15.9, camZ: 2.15,
-  lookX: 0.45,
-  lookY: 15,
-  lookZ: 0.1,
-  shellOpacity: 0.015,
-  duration: 0.8,
-  ease: "power3.inOut",
-  onUpdate: updateScene
-}, 0.65);
-
 // PHASE 2: ZOOM TO ELECTRICAL PANEL (PROBLEM FOCUS)
 tlStory.to(proxy, {
-  camX: 0.55, camY: 15.65, camZ: -1.15,
-  lookX: -0.25,
+  camX: 2.7, camY: 16.5, camZ: -0.35,
+  lookX: -0.18,
   lookY: 15,
-  lookZ: -1.35,
+  lookZ: -1.18,
   faultIntensity: 1, // Turn on red
   vignetteBlur: 10,  // Blur background/edges
-  duration: 0.9,
+  duration: 0.95,
   ease: "power3.inOut",
   onUpdate: updateScene
-}, 1.45);
+}, 1.1);
 
 // Animate the money counter
 tlStory.to({ val: 0 }, {
@@ -937,13 +925,28 @@ tlStory.to({ val: 0 }, {
   onUpdate: function() {
     document.getElementById('counter-fail').innerText = '£' + Math.floor(this.targets()[0].val).toLocaleString();
   }
-}, 1.65);
+}, 1.35);
+
+// PHASE 2B: STABLE CORE COMPONENT CUTAWAY BETWEEN RED AND GREEN
+tlStory.to(proxy, {
+  camX: 4.1, camY: 16.85, camZ: 4.9,
+  lookX: 0.05,
+  lookY: 15,
+  lookZ: 0.05,
+  faultIntensity: 0,
+  greenIntensity: 0,
+  vignetteBlur: 0,
+  shellOpacity: 0.025,
+  duration: 1,
+  ease: "power2.inOut",
+  onUpdate: updateScene
+}, 2.05);
 
 // PHASE 3: SOLUTION (GREEN / CYAN)
 tlStory.to(proxy, {
   faultIntensity: 0,
   greenIntensity: 1,
-  camX: -2.2, camY: 16.3, camZ: -1.8, // Orbit slightly
+  camX: -2.6, camY: 16.9, camZ: -1.4, // Orbit slightly
   lookX: 0.2,
   lookY: 15,
   lookZ: -0.8,
@@ -951,7 +954,7 @@ tlStory.to(proxy, {
   duration: 1,
   ease: "power2.inOut",
   onUpdate: updateScene
-}, 2.35);
+}, 3.05);
 
 tlStory.to({ val: 0 }, {
   val: 2400000,
@@ -959,7 +962,7 @@ tlStory.to({ val: 0 }, {
   onUpdate: function() {
     document.getElementById('counter-save').innerText = '£' + Math.floor(this.targets()[0].val).toLocaleString();
   }
-}, 2.85);
+}, 3.35);
 
 // PHASE 4: PULL BACK FOR PNN
 tlStory.to(proxy, {
@@ -972,7 +975,7 @@ tlStory.to(proxy, {
   duration: 1.5,
   ease: "power4.out",
   onUpdate: updateScene
-}, 3.85);
+}, 4.15);
 
 tlStory.eventCallback("onUpdate", () => {
   syncStoryPanels(tlStory.time());
