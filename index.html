@@ -106,6 +106,18 @@
   <div class="data-row"><span>Status</span><span style="color: var(--accent-green)">OPTIMIZED</span></div>
 </div>
 
+<div id="panel-mechanism" class="glass-panel status-panel mechanism-panel">
+  <div class="status-header">
+    <div class="status-dot cyan"></div>
+    <div class="label-mono" style="color: var(--accent-cyan)">Core Mechanism Insight</div>
+  </div>
+  <div class="status-value val-cyan">Nacelle</div>
+  <div class="status-desc">Cutaway view into drivetrain and electrical monitoring zones</div>
+  <div class="data-row"><span>Layer</span><span>Internal Components</span></div>
+  <div class="data-row"><span>Focus</span><span>Mechanical + Electrical</span></div>
+  <div class="data-row"><span>Next</span><span>Anomaly Tracking</span></div>
+</div>
+
 <section id="pnn-system">
   <div class="pnn-container">
     <svg class="pnn-lines" viewBox="0 0 1000 800" preserveAspectRatio="xMidYMid meet">
@@ -561,6 +573,7 @@ const cursor = document.getElementById('cursor');
 const ring = document.getElementById('cursor-ring');
 const panelProblemEl = document.getElementById('panel-problem');
 const panelSolutionEl = document.getElementById('panel-solution');
+const panelMechanismEl = document.getElementById('panel-mechanism');
 let mouseX = window.innerWidth/2, mouseY = window.innerHeight/2;
 
 document.addEventListener('mousemove', e => {
@@ -858,9 +871,11 @@ let proxy = {
 };
 
 function syncStoryPanels(storyTime) {
+  const showMechanism = storyTime >= 0.75 && storyTime < 1.35;
   const showProblem = storyTime >= 1.35 && storyTime < 2.2;
   const showSolution = storyTime >= 2.35 && storyTime < 3.35;
 
+  panelMechanismEl.classList.toggle('active', showMechanism);
   panelProblemEl.classList.toggle('active', showProblem);
   panelSolutionEl.classList.toggle('active', showSolution);
 }

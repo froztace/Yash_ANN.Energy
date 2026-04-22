@@ -997,6 +997,7 @@ border-radius: 50%;
 }
 .status-dot.red { background: var(--accent-red); box-shadow: 0 0 15px var(--accent-red); animation: pulseRed 1s infinite alternate; }
 .status-dot.green { background: var(--accent-green); box-shadow: 0 0 15px var(--accent-green); }
+.status-dot.cyan { background: var(--accent-cyan); box-shadow: 0 0 15px var(--accent-cyan); }
 
 @keyframes pulseRed {
 from { opacity: 0.5; transform: scale(0.8); }
@@ -1013,6 +1014,7 @@ margin-bottom: 8px;
 }
 .val-red { color: var(--accent-red); }
 .val-green { color: var(--accent-green); }
+.val-cyan { color: var(--accent-cyan); font-size: 48px; }
 
 .status-desc { font-size: 14px; color: var(--text-secondary); margin-bottom: 24px; }
 
@@ -1025,6 +1027,11 @@ font-family: var(--font-mono);
 font-size: 12px;
 }
 .data-row span:last-child { color: #fff; font-weight: 600; }
+
+.mechanism-panel {
+border-color: rgba(0, 229, 255, 0.16);
+background: linear-gradient(135deg, rgba(10, 18, 28, 0.68) 0%, rgba(0, 102, 204, 0.1) 100%);
+}
 
 /* SOLUTION SECTION - GREEN */
 #solution .label-mono { color: var(--accent-green); }
