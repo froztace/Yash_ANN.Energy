@@ -907,10 +907,10 @@ tlStory.to(proxy, {
 
 // PHASE 2: ZOOM TO ELECTRICAL PANEL (PROBLEM FOCUS)
 tlStory.to(proxy, {
-  camX: 2.7, camY: 16.5, camZ: -0.35,
-  lookX: -0.18,
+  camX: 4.2, camY: 17.1, camZ: 2.4,
+  lookX: -0.1,
   lookY: 15,
-  lookZ: -1.18,
+  lookZ: -0.9,
   faultIntensity: 1, // Turn on red
   vignetteBlur: 10,  // Blur background/edges
   duration: 0.95,
@@ -929,10 +929,10 @@ tlStory.to({ val: 0 }, {
 
 // PHASE 2B: STABLE CORE COMPONENT CUTAWAY BETWEEN RED AND GREEN
 tlStory.to(proxy, {
-  camX: 4.1, camY: 16.85, camZ: 4.9,
-  lookX: 0.05,
+  camX: 5.6, camY: 17.25, camZ: 6.4,
+  lookX: 0,
   lookY: 15,
-  lookZ: 0.05,
+  lookZ: 0.25,
   faultIntensity: 0,
   greenIntensity: 0,
   vignetteBlur: 0,
@@ -946,10 +946,10 @@ tlStory.to(proxy, {
 tlStory.to(proxy, {
   faultIntensity: 0,
   greenIntensity: 1,
-  camX: -2.6, camY: 16.9, camZ: -1.4, // Orbit slightly
-  lookX: 0.2,
+  camX: -3, camY: 17, camZ: -1, // Orbit slightly
+  lookX: 0,
   lookY: 15,
-  lookZ: -0.8,
+  lookZ: 0,
   vignetteBlur: 0,
   duration: 1,
   ease: "power2.inOut",
