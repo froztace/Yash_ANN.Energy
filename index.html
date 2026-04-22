@@ -875,8 +875,8 @@ let proxy = {
 
 function syncStoryPanels(storyTime) {
   const showProblem = storyTime >= 1.15 && storyTime < 2.05;
-  const showMechanism = storyTime >= 2.05 && storyTime < 3.05;
-  const showSolution = storyTime >= 3.05 && storyTime < 4.05;
+  const showMechanism = storyTime >= 2.05 && storyTime < 3.65;
+  const showSolution = storyTime >= 3.65 && storyTime < 5.05;
 
   panelMechanismEl.classList.toggle('active', showMechanism);
   panelProblemEl.classList.toggle('active', showProblem);
@@ -937,8 +937,8 @@ tlStory.to(proxy, {
   greenIntensity: 0,
   vignetteBlur: 0,
   shellOpacity: 0.025,
-  duration: 1,
-  ease: "power2.inOut",
+  duration: 1.6,
+  ease: "power1.inOut",
   onUpdate: updateScene
 }, 2.05);
 
@@ -951,10 +951,10 @@ tlStory.to(proxy, {
   lookY: 15,
   lookZ: 0,
   vignetteBlur: 0,
-  duration: 1,
-  ease: "power2.inOut",
+  duration: 1.4,
+  ease: "power1.inOut",
   onUpdate: updateScene
-}, 3.05);
+}, 3.65);
 
 tlStory.to({ val: 0 }, {
   val: 2400000,
@@ -962,7 +962,7 @@ tlStory.to({ val: 0 }, {
   onUpdate: function() {
     document.getElementById('counter-save').innerText = '£' + Math.floor(this.targets()[0].val).toLocaleString();
   }
-}, 3.35);
+}, 4.1);
 
 // PHASE 4: PULL BACK FOR PNN
 tlStory.to(proxy, {
@@ -972,10 +972,10 @@ tlStory.to(proxy, {
   lookZ: 0,
   shellOpacity: 1,
   greenIntensity: 0,
-  duration: 1.5,
-  ease: "power4.out",
+  duration: 1.8,
+  ease: "power2.inOut",
   onUpdate: updateScene
-}, 4.15);
+}, 5.2);
 
 tlStory.eventCallback("onUpdate", () => {
   syncStoryPanels(tlStory.time());
