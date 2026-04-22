@@ -662,6 +662,22 @@ const matGlass = new THREE.MeshPhysicalMaterial({
   opacity: 1
 });
 
+const matInterior = new THREE.MeshPhysicalMaterial({
+  color: 0xf2f4f5,
+  metalness: 0.25,
+  roughness: 0.35,
+  clearcoat: 0.4
+});
+
+const matInsightRed = new THREE.MeshPhysicalMaterial({
+  color: 0xe01924,
+  metalness: 0.15,
+  roughness: 0.28,
+  clearcoat: 0.5
+});
+
+const matCable = new THREE.MeshBasicMaterial({ color: 0x00e5ff });
+
 // TOWER
 const towerGeo = new THREE.CylinderGeometry(0.8, 1.5, 30, 32);
 const tower = new THREE.Mesh(towerGeo, matMetal);
@@ -712,6 +728,62 @@ for (let i = 0; i < 3; i++) {
 // ============================================================
 const internalsGroup = new THREE.Group();
 nacelleGroup.add(internalsGroup);
+
+// Cutaway-style mechanism insight layer. These early primitives make the
+// scroll zoom feel like it is entering a real nacelle before we detail names.
+const nacelleDeck = new THREE.Mesh(new THREE.BoxGeometry(4.8, 0.08, 4.1), matInterior);
+nacelleDeck.position.set(0, -0.78, 0.2);
+nacelleDeck.receiveShadow = true;
+internalsGroup.add(nacelleDeck);
+
+const mainShaftGeo = new THREE.CylinderGeometry(0.09, 0.09, 4.2, 24);
+mainShaftGeo.rotateX(Math.PI / 2);
+const mainShaft = new THREE.Mesh(mainShaftGeo, matInterior);
+mainShaft.position.set(0, 0.05, 1.1);
+internalsGroup.add(mainShaft);
+
+const generatorGeo = new THREE.CylinderGeometry(0.55, 0.55, 1.35, 32);
+generatorGeo.rotateX(Math.PI / 2);
+const generator = new THREE.Mesh(generatorGeo, matInterior);
+generator.position.set(0.85, 0, 0.2);
+generator.castShadow = true;
+internalsGroup.add(generator);
+
+const generatorCoreGeo = new THREE.CylinderGeometry(0.35, 0.35, 0.22, 24);
+generatorCoreGeo.rotateX(Math.PI / 2);
+const generatorCore = new THREE.Mesh(generatorCoreGeo, matDarkMetal);
+generatorCore.position.set(0.85, 0, 0.95);
+internalsGroup.add(generatorCore);
+
+const rearCabinet = new THREE.Mesh(new THREE.BoxGeometry(0.85, 0.9, 0.72), matInsightRed);
+rearCabinet.position.set(-1.25, -0.18, -1.05);
+rearCabinet.castShadow = true;
+internalsGroup.add(rearCabinet);
+
+const sideCabinet = new THREE.Mesh(new THREE.BoxGeometry(0.45, 0.92, 0.62), matInsightRed);
+sideCabinet.position.set(-2.0, -0.16, 0.55);
+sideCabinet.castShadow = true;
+internalsGroup.add(sideCabinet);
+
+const diagnosticStack = new THREE.Mesh(new THREE.BoxGeometry(0.58, 0.5, 0.5), matInsightRed);
+diagnosticStack.position.set(-2.2, 0.1, -1.35);
+diagnosticStack.castShadow = true;
+internalsGroup.add(diagnosticStack);
+
+const railGeo = new THREE.BoxGeometry(4.4, 0.04, 0.04);
+const leftRail = new THREE.Mesh(railGeo, matCable);
+leftRail.position.set(0, -0.55, -1.55);
+internalsGroup.add(leftRail);
+const rightRail = new THREE.Mesh(railGeo, matCable);
+rightRail.position.set(0, -0.55, 1.55);
+internalsGroup.add(rightRail);
+
+const sensorPinGeo = new THREE.CylinderGeometry(0.018, 0.018, 0.9, 12);
+for (let i = 0; i < 3; i++) {
+  const pin = new THREE.Mesh(sensorPinGeo, matInsightRed);
+  pin.position.set(-2.25 + i * 0.55, 0.65, -1.55 + i * 0.2);
+  internalsGroup.add(pin);
+}
 
 // Gearbox (Ridged Cylinder)
 const gearboxGeo = new THREE.CylinderGeometry(0.8, 0.8, 2, 32, 1, false);
