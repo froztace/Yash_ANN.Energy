@@ -674,6 +674,16 @@ margin-top: 24px;
 font-weight: 400;
 }
 
+#problem .text-block p {
+font-size: 22px;
+line-height: 1.7;
+color: #ffffff !important;
+opacity: 1 !important;
+font-weight: 500;
+text-shadow: 0 8px 24px rgba(0, 0, 0, 0.45);
+max-width: 620px;
+}
+
 body.component-inspection #problem .text-block,
 body.component-inspection #solution .text-block {
 opacity: 0;
