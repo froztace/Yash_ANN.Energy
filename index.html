@@ -255,7 +255,7 @@
       <div class="comp-cell"><span class="sym-cross">X</span></div>
       <div class="comp-cell"><span class="sym-check">✓</span></div>
       <div class="comp-cell"><span class="sym-check">✓</span></div>
-      <div class="comp-cell"></div>
+      <div class="comp-cell"><span class="sym-check">✓</span></div>
     </div>
 
     <div class="comp-row animate-row">
@@ -730,17 +730,31 @@ const generatorBase = new THREE.Mesh(new THREE.BoxGeometry(1.35, 0.22, 1.28), ma
 generatorBase.position.set(0, -0.72, -0.98);
 internalsGroup.add(generatorBase);
 
-const rearCabinet = new THREE.Mesh(new THREE.BoxGeometry(0.74, 0.88, 0.62), matConverter);
+const matElectricalCluster = matConverter.clone();
+matElectricalCluster.transparent = true;
+matElectricalCluster.opacity = 0.62;
+const matElectricalAccent = matInsightRed.clone();
+matElectricalAccent.transparent = true;
+matElectricalAccent.opacity = 0.58;
+const matElectricalPanel = new THREE.MeshPhysicalMaterial({
+  color: 0x050505,
+  roughness: 0.1,
+  metalness: 0.9,
+  transparent: true,
+  opacity: 0.55
+});
+
+const rearCabinet = new THREE.Mesh(new THREE.BoxGeometry(0.74, 0.88, 0.62), matElectricalCluster);
 rearCabinet.position.set(0.86, -0.33, -2.4);
 rearCabinet.castShadow = true;
 internalsGroup.add(rearCabinet);
 
-const sideCabinet = new THREE.Mesh(new THREE.BoxGeometry(0.54, 0.78, 0.58), matConverter);
+const sideCabinet = new THREE.Mesh(new THREE.BoxGeometry(0.54, 0.78, 0.58), matElectricalCluster);
 sideCabinet.position.set(1.58, -0.38, -2.34);
 sideCabinet.castShadow = true;
 internalsGroup.add(sideCabinet);
 
-const diagnosticStack = new THREE.Mesh(new THREE.BoxGeometry(0.44, 0.46, 0.42), matInsightRed);
+const diagnosticStack = new THREE.Mesh(new THREE.BoxGeometry(0.44, 0.46, 0.42), matElectricalAccent);
 diagnosticStack.position.set(0.56, 0.08, -2.78);
 diagnosticStack.castShadow = true;
 internalsGroup.add(diagnosticStack);
@@ -768,7 +782,7 @@ for (let i = 0; i < 3; i++) {
 
 // Electrical / Power Converter Module (Sleek Black Box)
 const panelGeo = new THREE.BoxGeometry(1.1, 0.78, 0.72);
-const electricalPanel = new THREE.Mesh(panelGeo, new THREE.MeshPhysicalMaterial({ color: 0x050505, roughness: 0.1, metalness: 0.9 }));
+const electricalPanel = new THREE.Mesh(panelGeo, matElectricalPanel);
 electricalPanel.position.set(0.16, -0.42, -2.22);
 internalsGroup.add(electricalPanel);
 
