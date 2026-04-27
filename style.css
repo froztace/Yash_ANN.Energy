@@ -376,6 +376,8 @@ z-index: 2;
 color: var(--accent-cyan);
 margin-bottom: 24px;
 opacity: 0;
+font-size: 15px;
+letter-spacing: 0.16em;
 }
 .hero-title {
 opacity: 0;
@@ -386,10 +388,10 @@ background: linear-gradient(180deg, #fff 0%, #a1a1a6 100%);
 }
 .hero-sub {
 margin-top: 24px;
-font-size: 20px;
+font-size: clamp(22px, 2vw, 28px);
 color: var(--text-secondary);
-max-width: 560px;
-line-height: 1.5;
+max-width: 720px;
+line-height: 1.45;
 opacity: 0;
 font-weight: 400;
 letter-spacing: -0.01em;
