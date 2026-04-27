@@ -440,16 +440,16 @@
       const cells = row.querySelectorAll('.comp-cell');
       compTl.fromTo(cells,
         { opacity: 0, y: 20 },
-        { opacity: 1, y: 0, duration: 0.4, ease: "power2.out", stagger: 0.05 },
-        "+=0.08"
+        { opacity: 1, y: 0, duration: 0.26, ease: "power2.out", stagger: 0.025 },
+        "+=0.03"
       );
     });
 
     // Final subtle pulse on ANN column checks
     compTl.fromTo(".col-ann .sym-check",
       { scale: 1, textShadow: "0 0 0px var(--accent-green)" },
-      { scale: 1.2, textShadow: "0 0 20px var(--accent-green)", duration: 0.5, yoyo: true, repeat: 1, stagger: 0.1 },
-      "+=0.05"
+      { scale: 1.2, textShadow: "0 0 20px var(--accent-green)", duration: 0.35, yoyo: true, repeat: 1, stagger: 0.06 },
+      "+=0.02"
     );
 
   });
@@ -458,7 +458,6 @@
 
 <section id="cta">
   <h2 class="headline-large">Intelligence is<br>the ultimate asset.</h2>
-  <a href="mailto:anenergyuk@gmail.com" class="cta-btn">Request Investor Briefing</a>
 </section>
 
 <footer>
