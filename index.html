@@ -25,7 +25,7 @@
 <nav>
   <div class="nav-logo">
     <div class="nav-logo-dot"></div>
-    ANN.Energy_UofG
+    ANN.Energy
   </div>
   <ul class="nav-links">
     <li><a href="#problem">Platform</a></li>
@@ -440,19 +440,20 @@
     );
 
     compTl.fromTo(".comp-grid",
-      { opacity: 0, y: 50, scale: 0.98 },
-      { opacity: 1, y: 0, scale: 1, duration: 1, ease: "power4.out" },
+      { y: 50, scale: 0.98 },
+      { y: 0, scale: 1, duration: 1, ease: "power4.out" },
       "-=0.5"
     );
 
     // Stagger the cells appearing row by row
     const rows = document.querySelectorAll('.animate-row');
-    rows.forEach((row, i) => {
+    gsap.set(".animate-row .comp-cell", { opacity: 0, y: 20 });
+    rows.forEach((row) => {
       const cells = row.querySelectorAll('.comp-cell');
       compTl.fromTo(cells,
         { opacity: 0, y: 20 },
         { opacity: 1, y: 0, duration: 0.4, ease: "power2.out", stagger: 0.05 },
-        `-=${0.3 - (i * 0.05)}`
+        "+=0.08"
       );
     });
 
@@ -460,7 +461,7 @@
     compTl.fromTo(".col-ann .sym-check",
       { scale: 1, textShadow: "0 0 0px var(--accent-green)" },
       { scale: 1.2, textShadow: "0 0 20px var(--accent-green)", duration: 0.5, yoyo: true, repeat: 1, stagger: 0.1 },
-      "-=0.2"
+      "+=0.05"
     );
 
   });
@@ -473,8 +474,8 @@
 </section>
 
 <footer>
-  <div class="nav-logo"><div class="nav-logo-dot"></div>ANN.Energy_UofG</div>
-  <p>© 2026 ANN.Energy_UofG </p>
+  <div class="nav-logo"><div class="nav-logo-dot"></div>ANN.Energy</div>
+  <p>© 2026 ANN.Energy </p>
 </footer>
 
 <script>
