@@ -106,18 +106,6 @@
   <div class="data-row"><span>Status</span><span style="color: var(--accent-green)">OPTIMIZED</span></div>
 </div>
 
-<div id="panel-mechanism" class="glass-panel status-panel mechanism-panel">
-  <div class="status-header">
-    <div class="status-dot cyan"></div>
-    <div class="label-mono" style="color: var(--accent-cyan)">Core Mechanism Insight</div>
-  </div>
-  <div class="status-value val-cyan" id="component-title">Nacelle</div>
-  <div class="status-desc" id="component-desc">Cutaway view into drivetrain and electrical monitoring zones</div>
-  <div class="data-row"><span>Part</span><span id="component-part">Internal Components</span></div>
-  <div class="data-row"><span>Role</span><span id="component-role">Mechanical + Electrical</span></div>
-  <div class="data-row"><span>ANN Focus</span><span id="component-focus">Anomaly Tracking</span></div>
-</div>
-
 <section id="pnn-system">
   <div class="pnn-container">
     <svg class="pnn-lines" viewBox="0 0 1000 800" preserveAspectRatio="xMidYMid meet">
@@ -486,12 +474,6 @@ const cursor = document.getElementById('cursor');
 const ring = document.getElementById('cursor-ring');
 const panelProblemEl = document.getElementById('panel-problem');
 const panelSolutionEl = document.getElementById('panel-solution');
-const panelMechanismEl = document.getElementById('panel-mechanism');
-const componentTitleEl = document.getElementById('component-title');
-const componentDescEl = document.getElementById('component-desc');
-const componentPartEl = document.getElementById('component-part');
-const componentRoleEl = document.getElementById('component-role');
-const componentFocusEl = document.getElementById('component-focus');
 let mouseX = window.innerWidth/2, mouseY = window.innerHeight/2;
 
 document.addEventListener('mousemove', e => {
@@ -811,157 +793,6 @@ const faultGlow = new THREE.Mesh(faultGlowGeo, matFaultGlow);
 faultGlow.position.copy(nodeMesh.position);
 internalsGroup.add(faultGlow);
 
-const activeMarkerGeo = new THREE.SphereGeometry(0.12, 24, 24);
-const activeMarkerMat = new THREE.MeshBasicMaterial({
-  color: 0x00e5ff,
-  transparent: true,
-  opacity: 0.95,
-  blending: THREE.AdditiveBlending
-});
-const activeComponentMarker = new THREE.Mesh(activeMarkerGeo, activeMarkerMat);
-activeComponentMarker.visible = false;
-internalsGroup.add(activeComponentMarker);
-
-const activeRingGeo = new THREE.TorusGeometry(0.34, 0.012, 8, 48);
-const activeComponentRing = new THREE.Mesh(activeRingGeo, activeMarkerMat.clone());
-activeComponentRing.visible = false;
-internalsGroup.add(activeComponentRing);
-
-const componentSteps = [
-  {
-    title: 'Main Bearing',
-    label: 'Main bearing',
-    desc: 'Carries the rotor load and supports the front of the drivetrain.',
-    part: 'Rotor support',
-    role: 'Transfers blade loads',
-    focus: 'Load / vibration drift',
-    local: new THREE.Vector3(0, 0.25, 2.72),
-    labelOffset: { x: -76, y: -72 }
-  },
-  {
-    title: 'Low-Speed Shaft',
-    label: 'Low-speed shaft',
-    desc: 'Transfers slow, high-torque rotation from the hub toward the gearbox.',
-    part: 'Mechanical shaft',
-    role: 'Moves rotor torque',
-    focus: 'Torque fluctuation',
-    local: new THREE.Vector3(0, 0.35, 1.9),
-    labelOffset: { x: -110, y: -34 }
-  },
-  {
-    title: 'Gearbox',
-    label: 'Gearbox',
-    desc: 'Raises shaft speed so the generator can produce useful electrical output.',
-    part: 'Speed conversion',
-    role: 'Increases RPM',
-    focus: 'Thermal / wear signs',
-    local: new THREE.Vector3(0, 0.58, 0.88),
-    labelOffset: { x: 84, y: -64 }
-  },
-  {
-    title: 'Generator',
-    label: 'Generator',
-    desc: 'Converts rotational energy from the drivetrain into electrical power.',
-    part: 'Power generation',
-    role: 'Mechanical to electric',
-    focus: 'Current imbalance',
-    local: new THREE.Vector3(0, 0.56, -0.98),
-    labelOffset: { x: 92, y: -30 }
-  },
-  {
-    title: 'Power Converter',
-    label: 'Power converter',
-    desc: 'Conditions electrical output and is where semiconductor faults can cascade.',
-    part: 'Electrical cabinet',
-    role: 'Controls output',
-    focus: 'IGBT / capacitor health',
-    local: new THREE.Vector3(0.04, 0.02, -2.38),
-    labelOffset: { x: -90, y: 46 }
-  },
-  {
-    title: 'Yaw System',
-    label: 'Yaw system',
-    desc: 'Rotates the nacelle so the rotor stays aligned with incoming wind.',
-    part: 'Orientation ring',
-    role: 'Aligns nacelle',
-    focus: 'Actuator response',
-    local: new THREE.Vector3(0, -0.78, 0.04),
-    labelOffset: { x: 88, y: 74 }
-  }
-];
-
-const componentLabels = componentSteps.map((step) => {
-  const el = document.createElement('div');
-  el.className = 'component-label';
-  el.textContent = step.label;
-  document.body.appendChild(el);
-  return { ...step, el };
-});
-
-let activeComponentIndex = -1;
-let componentLabelsVisible = false;
-
-function resetComponentPanel() {
-  componentTitleEl.textContent = 'Nacelle';
-  componentDescEl.textContent = 'Cutaway view into drivetrain and electrical monitoring zones';
-  componentPartEl.textContent = 'Internal Components';
-  componentRoleEl.textContent = 'Mechanical + Electrical';
-  componentFocusEl.textContent = 'Anomaly Tracking';
-}
-
-function setActiveComponent(index) {
-  if (index === activeComponentIndex) return;
-  activeComponentIndex = index;
-
-  if (index < 0) {
-    activeComponentMarker.visible = false;
-    activeComponentRing.visible = false;
-    componentLabels.forEach((item) => item.el.classList.remove('active', 'visible'));
-    return;
-  }
-
-  const active = componentSteps[index];
-  componentTitleEl.textContent = active.title;
-  componentDescEl.textContent = active.desc;
-  componentPartEl.textContent = active.part;
-  componentRoleEl.textContent = active.role;
-  componentFocusEl.textContent = active.focus;
-  activeComponentMarker.visible = true;
-  activeComponentRing.visible = true;
-  activeComponentMarker.position.copy(active.local);
-  activeComponentRing.position.copy(active.local);
-  activeComponentRing.rotation.x = Math.PI / 2;
-}
-
-function updateComponentLabels() {
-  componentLabels.forEach((item, index) => {
-    const labelVisible = componentLabelsVisible && index === activeComponentIndex;
-    if (!labelVisible) {
-      item.el.classList.remove('visible', 'active');
-      return;
-    }
-
-    const screenPoint = item.local.clone();
-    nacelleGroup.localToWorld(screenPoint);
-    screenPoint.project(camera);
-
-    const isInView = screenPoint.z > -1 && screenPoint.z < 1;
-    const rawX = (screenPoint.x * 0.5 + 0.5) * window.innerWidth + item.labelOffset.x;
-    const rawY = (-screenPoint.y * 0.5 + 0.5) * window.innerHeight + item.labelOffset.y;
-    const safeMinX = window.innerWidth < 900 ? 24 : window.innerWidth * 0.36;
-    const safeMaxX = window.innerWidth < 900 ? window.innerWidth - 24 : window.innerWidth * 0.62;
-    const safeMinY = 150;
-    const safeMaxY = window.innerHeight - 130;
-    const x = gsap.utils.clamp(safeMinX, safeMaxX, rawX);
-    const y = gsap.utils.clamp(safeMinY, safeMaxY, rawY);
-
-    item.el.style.left = `${x}px`;
-    item.el.style.top = `${y}px`;
-    item.el.classList.toggle('visible', isInView);
-    item.el.classList.toggle('active', isInView);
-  });
-}
-
 // WATER / ENVIRONMENT
 const waterGeo = new THREE.PlaneGeometry(200, 200, 100, 100);
 const waterMat = new THREE.MeshPhysicalMaterial({
@@ -1005,25 +836,11 @@ let proxy = {
 };
 
 function syncStoryPanels(storyTime) {
-  const showProblem = storyTime >= 1.25 && storyTime < 4.55;
-  const showMechanism = storyTime >= 5.15 && storyTime < 12.25;
-  const showComponentLabels = storyTime >= 5.85 && storyTime < 12.25;
-  const showSolution = storyTime >= 12.25 && storyTime < 14.85;
+  const showProblem = storyTime >= 1.15 && storyTime < 3.55;
+  const showSolution = storyTime >= 3.55 && storyTime < 6.45;
 
-  panelMechanismEl.classList.toggle('active', showMechanism);
   panelProblemEl.classList.toggle('active', showProblem);
   panelSolutionEl.classList.toggle('active', showSolution);
-  document.body.classList.toggle('component-inspection', showMechanism);
-
-  componentLabelsVisible = showComponentLabels;
-  if (showComponentLabels) {
-    const labelProgress = gsap.utils.clamp(0, 0.999, (storyTime - 5.85) / 6.4);
-    const nextIndex = Math.floor(labelProgress * componentSteps.length);
-    setActiveComponent(nextIndex);
-  } else {
-    setActiveComponent(-1);
-    if (showMechanism) resetComponentPanel();
-  }
 }
 
 const tlStory = gsap.timeline({
@@ -1032,7 +849,7 @@ const tlStory = gsap.timeline({
     start: "top bottom",
     endTrigger: "#solution",
     end: "bottom top",
-    scrub: 2.2 // Slower interpolation keeps the cutaway inspection controlled
+    scrub: 1.7
   }
 });
 
@@ -1071,7 +888,7 @@ tlStory.to({ val: 0 }, {
   }
 }, 1.65);
 
-// PHASE 2B: HOLD THE FAILURE MOMENT BEFORE INSPECTION STARTS
+// PHASE 2B: HOLD THE FAILURE MOMENT
 tlStory.to(proxy, {
   camX: 5.4, camY: 17.25, camZ: 4.4,
   lookX: 0.05,
@@ -1085,37 +902,7 @@ tlStory.to(proxy, {
   onUpdate: updateScene
 }, 2.65);
 
-// PHASE 2C: SETTLE INTO THE CORE COMPONENT CUTAWAY
-tlStory.to(proxy, {
-  camX: 7.4, camY: 17.9, camZ: 8.2,
-  lookX: 0,
-  lookY: 15,
-  lookZ: 0.05,
-  faultIntensity: 0,
-  greenIntensity: 0,
-  vignetteBlur: 0,
-  shellOpacity: 0.11,
-  duration: 1.2,
-  ease: "power2.inOut",
-  onUpdate: updateScene
-}, 4.75);
-
-// PHASE 2D: LOCKED NACELLE LABELLING MODE
-tlStory.to(proxy, {
-  camX: 7.4, camY: 17.9, camZ: 8.2,
-  lookX: 0,
-  lookY: 15,
-  lookZ: 0.05,
-  faultIntensity: 0,
-  greenIntensity: 0,
-  vignetteBlur: 0,
-  shellOpacity: 0.11,
-  duration: 5.6,
-  ease: "none",
-  onUpdate: updateScene
-}, 5.95);
-
-// PHASE 3: SOLUTION (GREEN / CYAN) AFTER ALL COMPONENT LABELS
+// PHASE 3: SOLUTION (GREEN / CYAN)
 tlStory.to(proxy, {
   faultIntensity: 0,
   greenIntensity: 1,
@@ -1128,7 +915,7 @@ tlStory.to(proxy, {
   duration: 2.25,
   ease: "power2.inOut",
   onUpdate: updateScene
-}, 12.25);
+}, 4.75);
 
 tlStory.to({ val: 0 }, {
   val: 2400000,
@@ -1136,7 +923,7 @@ tlStory.to({ val: 0 }, {
   onUpdate: function() {
     document.getElementById('counter-save').innerText = '£' + Math.floor(this.targets()[0].val).toLocaleString();
   }
-}, 12.75);
+}, 5.1);
 
 // PHASE 4: PULL BACK FOR PNN
 tlStory.to(proxy, {
@@ -1149,7 +936,7 @@ tlStory.to(proxy, {
   duration: 1.8,
   ease: "power2.inOut",
   onUpdate: updateScene
-}, 15.05);
+}, 7.15);
 
 tlStory.eventCallback("onUpdate", () => {
   syncStoryPanels(tlStory.time());
@@ -1226,14 +1013,6 @@ function animate() {
     camera.position.x += (Math.random() - 0.5) * shake;
     camera.position.y += (Math.random() - 0.5) * shake;
   }
-
-  if (activeComponentRing.visible) {
-    const pulse = 1 + Math.sin(time * 4) * 0.08;
-    activeComponentRing.scale.setScalar(pulse);
-    activeComponentMarker.scale.setScalar(1 + Math.sin(time * 5) * 0.12);
-  }
-
-  updateComponentLabels();
 
   renderer.render(scene, camera);
 }
