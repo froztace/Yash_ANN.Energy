@@ -731,17 +731,17 @@ generatorBase.position.set(0, -0.72, -0.98);
 internalsGroup.add(generatorBase);
 
 const rearCabinet = new THREE.Mesh(new THREE.BoxGeometry(0.74, 0.88, 0.62), matConverter);
-rearCabinet.position.set(-0.78, -0.33, -2.42);
+rearCabinet.position.set(0.86, -0.33, -2.4);
 rearCabinet.castShadow = true;
 internalsGroup.add(rearCabinet);
 
 const sideCabinet = new THREE.Mesh(new THREE.BoxGeometry(0.54, 0.78, 0.58), matConverter);
-sideCabinet.position.set(0.84, -0.38, -2.43);
+sideCabinet.position.set(1.58, -0.38, -2.34);
 sideCabinet.castShadow = true;
 internalsGroup.add(sideCabinet);
 
 const diagnosticStack = new THREE.Mesh(new THREE.BoxGeometry(0.44, 0.46, 0.42), matInsightRed);
-diagnosticStack.position.set(-1.05, 0.08, -2.86);
+diagnosticStack.position.set(0.56, 0.08, -2.78);
 diagnosticStack.castShadow = true;
 internalsGroup.add(diagnosticStack);
 
@@ -769,14 +769,14 @@ for (let i = 0; i < 3; i++) {
 // Electrical / Power Converter Module (Sleek Black Box)
 const panelGeo = new THREE.BoxGeometry(1.1, 0.78, 0.72);
 const electricalPanel = new THREE.Mesh(panelGeo, new THREE.MeshPhysicalMaterial({ color: 0x050505, roughness: 0.1, metalness: 0.9 }));
-electricalPanel.position.set(0.04, -0.42, -2.38);
+electricalPanel.position.set(0.16, -0.42, -2.22);
 internalsGroup.add(electricalPanel);
 
 // Circuits / Nodes on Panel
 const nodeGeo = new THREE.BoxGeometry(0.72, 0.11, 0.28);
 const matNodeActive = new THREE.MeshBasicMaterial({ color: 0x00e5ff }); // Glowing Cyan
 const nodeMesh = new THREE.Mesh(nodeGeo, matNodeActive);
-nodeMesh.position.set(0.04, 0.02, -2.38); // On top of panel
+nodeMesh.position.set(0.16, 0.02, -2.22); // On top of panel
 internalsGroup.add(nodeMesh);
 
 // Fault Glow Sphere (Additive Blending)
@@ -791,6 +791,11 @@ const matFaultGlow = new THREE.MeshBasicMaterial({
 const faultGlow = new THREE.Mesh(faultGlowGeo, matFaultGlow);
 faultGlow.position.copy(nodeMesh.position);
 internalsGroup.add(faultGlow);
+
+const electricalClusterLabel = document.createElement('div');
+electricalClusterLabel.className = 'cluster-label';
+electricalClusterLabel.textContent = 'Electrical Components';
+document.body.appendChild(electricalClusterLabel);
 
 // WATER / ENVIRONMENT
 const waterGeo = new THREE.PlaneGeometry(200, 200, 100, 100);
@@ -840,6 +845,7 @@ function syncStoryPanels(storyTime) {
 
   panelProblemEl.classList.toggle('active', showProblem);
   panelSolutionEl.classList.toggle('active', showSolution);
+  electricalClusterLabel.classList.toggle('visible', showSolution);
 }
 
 const tlStory = gsap.timeline({
@@ -982,6 +988,16 @@ function updateScene() {
   document.getElementById('vignette').style.opacity = proxy.faultIntensity * 0.8;
   document.getElementById('vignette').style.backdropFilter = `blur(${proxy.vignetteBlur}px)`;
   document.getElementById('vignette').style.webkitBackdropFilter = `blur(${proxy.vignetteBlur}px)`;
+
+  const clusterPoint = new THREE.Vector3(1.05, 0.12, -2.45);
+  nacelleGroup.localToWorld(clusterPoint);
+  clusterPoint.project(camera);
+  const clusterVisible = clusterPoint.z > -1 && clusterPoint.z < 1 && panelSolutionEl.classList.contains('active');
+  const clusterX = (clusterPoint.x * 0.5 + 0.5) * window.innerWidth + 18;
+  const clusterY = (-clusterPoint.y * 0.5 + 0.5) * window.innerHeight - 42;
+  electricalClusterLabel.style.left = `${gsap.utils.clamp(window.innerWidth * 0.42, window.innerWidth * 0.68, clusterX)}px`;
+  electricalClusterLabel.style.top = `${gsap.utils.clamp(150, window.innerHeight - 160, clusterY)}px`;
+  electricalClusterLabel.classList.toggle('active', clusterVisible);
 }
 
 // ============================================================
