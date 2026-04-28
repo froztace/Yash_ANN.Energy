@@ -741,31 +741,34 @@ internalsGroup.add(generatorBase);
 
 const matElectricalCluster = matConverter.clone();
 matElectricalCluster.transparent = true;
-matElectricalCluster.opacity = 0.62;
+matElectricalCluster.opacity = 0.8;
 const matElectricalAccent = matInsightRed.clone();
 matElectricalAccent.transparent = true;
-matElectricalAccent.opacity = 0.58;
+matElectricalAccent.opacity = 0.86;
 const matElectricalPanel = new THREE.MeshPhysicalMaterial({
   color: 0x050505,
   roughness: 0.1,
   metalness: 0.9,
   transparent: true,
-  opacity: 0.55
+  opacity: 0.72
 });
 
 const rearCabinet = new THREE.Mesh(new THREE.BoxGeometry(0.74, 0.88, 0.62), matElectricalCluster);
-rearCabinet.position.set(0.86, -0.33, -2.4);
+rearCabinet.position.set(0.92, -0.3, -2.02);
 rearCabinet.castShadow = true;
+rearCabinet.renderOrder = 4;
 internalsGroup.add(rearCabinet);
 
 const sideCabinet = new THREE.Mesh(new THREE.BoxGeometry(0.54, 0.78, 0.58), matElectricalCluster);
-sideCabinet.position.set(1.58, -0.38, -2.34);
+sideCabinet.position.set(1.64, -0.34, -1.92);
 sideCabinet.castShadow = true;
+sideCabinet.renderOrder = 4;
 internalsGroup.add(sideCabinet);
 
 const diagnosticStack = new THREE.Mesh(new THREE.BoxGeometry(0.44, 0.46, 0.42), matElectricalAccent);
-diagnosticStack.position.set(0.56, 0.08, -2.78);
+diagnosticStack.position.set(0.64, 0.08, -2.22);
 diagnosticStack.castShadow = true;
+diagnosticStack.renderOrder = 5;
 internalsGroup.add(diagnosticStack);
 
 const yawRingGeo = new THREE.TorusGeometry(1.04, 0.045, 12, 48);
@@ -792,14 +795,16 @@ for (let i = 0; i < 3; i++) {
 // Electrical / Power Converter Module (Sleek Black Box)
 const panelGeo = new THREE.BoxGeometry(1.1, 0.78, 0.72);
 const electricalPanel = new THREE.Mesh(panelGeo, matElectricalPanel);
-electricalPanel.position.set(0.16, -0.42, -2.22);
+electricalPanel.position.set(0.26, -0.38, -1.82);
+electricalPanel.renderOrder = 3;
 internalsGroup.add(electricalPanel);
 
 // Circuits / Nodes on Panel
 const nodeGeo = new THREE.BoxGeometry(0.72, 0.11, 0.28);
 const matNodeActive = new THREE.MeshBasicMaterial({ color: 0x00e5ff }); // Glowing Cyan
 const nodeMesh = new THREE.Mesh(nodeGeo, matNodeActive);
-nodeMesh.position.set(0.16, 0.02, -2.22); // On top of panel
+nodeMesh.position.set(0.26, 0.05, -1.82); // On top of panel
+nodeMesh.renderOrder = 6;
 internalsGroup.add(nodeMesh);
 
 // Fault Glow Sphere (Additive Blending)
@@ -939,7 +944,7 @@ tlStory.to(proxy, {
   lookY: 15,
   lookZ: 0,
   vignetteBlur: 0,
-  shellOpacity: 0.18,
+  shellOpacity: 0.09,
   duration: 2.25,
   ease: "power2.inOut",
   onUpdate: updateScene
@@ -981,7 +986,12 @@ function updateScene() {
   // Shell Opacity
   shell.material.opacity = proxy.shellOpacity;
   shell.material.depthWrite = proxy.shellOpacity > 0.5; // Prevent weird sorting when transparent
-  shellEdges.material.opacity = proxy.shellOpacity > 0.5 ? 0.32 : 0.48;
+  shellEdges.material.opacity = proxy.greenIntensity > 0.1 ? 0.2 : (proxy.shellOpacity > 0.5 ? 0.32 : 0.48);
+
+  const clusterBoost = proxy.greenIntensity;
+  matElectricalCluster.opacity = 0.8 + (0.15 * clusterBoost);
+  matElectricalAccent.opacity = 0.86 + (0.14 * clusterBoost);
+  matElectricalPanel.opacity = 0.72 + (0.16 * clusterBoost);
 
   // Fault Effects (Red)
   matFaultGlow.opacity = proxy.faultIntensity * (0.6 + Math.random()*0.4); // Flicker
