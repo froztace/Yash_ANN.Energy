@@ -1427,6 +1427,25 @@ text-transform: uppercase;
 color: rgba(123, 232, 247, 0.7);
 }
 
+.team-link {
+font-family: var(--font-mono);
+font-size: 12px;
+font-weight: 700;
+letter-spacing: 0.12em;
+text-transform: uppercase;
+color: rgba(123, 232, 247, 0.86);
+text-decoration: none;
+border-bottom: 1px solid rgba(123, 232, 247, 0.35);
+padding-bottom: 3px;
+transition: color 0.25s ease, border-color 0.25s ease, text-shadow 0.25s ease;
+}
+
+.team-link:hover {
+color: #ffffff;
+border-color: rgba(255, 255, 255, 0.7);
+text-shadow: 0 0 14px rgba(0, 229, 255, 0.24);
+}
+
 /* FOOTER */
 footer {
 padding: 40px 10vw;
