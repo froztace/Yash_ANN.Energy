@@ -684,6 +684,16 @@ text-shadow: 0 8px 24px rgba(0, 0, 0, 0.45);
 max-width: 620px;
 }
 
+#solution .text-block p {
+font-size: 22px;
+line-height: 1.7;
+color: #ffffff !important;
+opacity: 1 !important;
+font-weight: 500;
+text-shadow: 0 8px 24px rgba(0, 0, 0, 0.45);
+max-width: 620px;
+}
+
 #competitors {
     min-height: 100vh;
     padding: 120px 5vw;
@@ -1138,17 +1148,18 @@ text-align: left;
 }
 .cta-solution-title {
 font-family: var(--font-mono);
-font-size: 18px;
-font-weight: 700;
+font-size: 20px;
+font-weight: 800;
 letter-spacing: 0.08em;
 text-transform: uppercase;
 color: var(--accent-green);
 margin-bottom: 18px;
 }
 .cta-solution-card p {
-font-size: clamp(18px, 2vw, 24px);
-line-height: 1.75;
-color: rgba(255,255,255,0.88);
+font-size: clamp(20px, 2.15vw, 26px);
+line-height: 1.7;
+color: #ffffff;
+font-weight: 600;
 margin: 0;
 }
 .cta-btn {
